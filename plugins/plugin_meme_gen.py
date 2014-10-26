@@ -24,7 +24,7 @@ class ExplicitMemeGen(AbstractPlugin):
         raise Exception("Argument count mismatch")
 
 class ImplicitMemeGen(AbstractPlugin):
-    registered_commands = ["#doge", "#henry", "#steve" , "#uzyr", "#dogdre", "#gdre", "#shaun", "#rosen", "#abster", "#tspinner", "#henrythresh", "#ssjfarhan", "#hamza"]
+    registered_commands = ["#doge", "#henry", "#steve" , "#uzyr", "#dogdre", "#gdre", "#shaun", "#rosen", "#abster", "#tspinner", "#henrythresh", "#ssjfarhan", "#hamza","#clarinetboy]
     def get_response(self, command):
         syntax_pattern = '(.+?),\s?(.+)'
         syntax_match = re.match(syntax_pattern, command.get_command_operands())
