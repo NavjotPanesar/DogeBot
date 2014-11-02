@@ -131,6 +131,7 @@ class TestEnd2End(unittest.TestCase):
         self.assertTrue( self.returnTweetHasImage(self.getResponse(4)) )
 
     def testErrorRecovery(self):
+        Log.showE = False
         reader = StatusQueue()
         bot = StatusAnalyzer()
         bot.add_response_generated_listener(self.handleResponse)
@@ -140,6 +141,7 @@ class TestEnd2End(unittest.TestCase):
         self.postTweetToBot(reader, input1)
         self.postTweetToBot(reader, input2)
         self.waitForResponse(1)
+        Log.showE = True
         self.assertTrue( self.returnTweetHasImage(self.getResponse(1)) )
 
     def testSmite(self):
@@ -153,6 +155,28 @@ class TestEnd2End(unittest.TestCase):
         self.postTweetToBot(reader, inputTweet)
         self.waitForResponse(1)
         self.assertTrue( self.returnedTweetContains(self.getResponse(1), expectedOutputText) )
+
+    def testRektResponds(self):
+        reader = StatusQueue()
+        bot = StatusAnalyzer()
+        bot.add_response_generated_listener(self.handleResponse)
+        reader.add_status_ready_listener(bot.generate_response_tweet)
+        inputText = "#dogebot #rekt"
+        inputTweet = self.buildMockTweet(inputText)
+        self.postTweetToBot(reader, inputTweet)
+        self.waitForResponse(1)
+        self.assertTrue( True )
+
+    def testDongerResponds(self):
+        reader = StatusQueue()
+        bot = StatusAnalyzer()
+        bot.add_response_generated_listener(self.handleResponse)
+        reader.add_status_ready_listener(bot.generate_response_tweet)
+        inputText = "#dogebot #donger"
+        inputTweet = self.buildMockTweet(inputText)
+        self.postTweetToBot(reader, inputTweet)
+        self.waitForResponse(1)
+        self.assertTrue( True )
 
 if __name__ == '__main__':
     unittest.main()
