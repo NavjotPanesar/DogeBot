@@ -1,5 +1,6 @@
 #pycharm ide stuff
 .idea/
+config.py
 
 #Generic python gitignore stuff
 # Byte-compiled / optimized / DLL files
