@@ -1,8 +1,5 @@
 #pycharm ide stuff
-.idea/workspace.xml
-.idea/tasks.xml
-config.py
-resources/tspinner.jpg
+.idea/
 
 #Generic python gitignore stuff
 # Byte-compiled / optimized / DLL files
