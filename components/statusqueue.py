@@ -23,10 +23,10 @@ class StatusQueue():
             for observer in self.on_status_ready_listener:
                 observer(tweet)
 
-    def queue_tweet(self, tweet):
-        self.tweet_queue.append(tweet)
+    def queue_tweet(self, tweetWrapper):
+        self.tweet_queue.append(tweetWrapper)
         Log.v("READ", "Added new tweet to queue: ")
-        Log.v("TWEET", tweet)
+        Log.v("TWEET", tweetWrapper.incoming_tweet)
         if not self.thread_locked:
             self.thread_locked = True
             self.thread = threading.Thread(target=self.work_on_tweet)
@@ -38,14 +38,14 @@ class StatusQueue():
             self.thread_locked = False
             return
         else:
-            tweet = self.tweet_queue[0]
+            tweetWrapper = self.tweet_queue[0]
             del self.tweet_queue[0]
             Log.v("QUEUE", 'doing work on tweet: ')
-            Log.v("TWEET", tweet)
+            Log.v("TWEET", tweetWrapper.incoming_tweet)
             try:
-                self.notify_add_on_status_ready_listeners(tweet)
+                self.notify_add_on_status_ready_listeners(tweetWrapper)
             except Exception as e:
                 Log.e("EXCEPTION", str(e))
             Log.v("QUEUE", 'finished work on tweet: ')
-            Log.v("TWEET", tweet)
+            Log.v("TWEET", tweetWrapper.incoming_tweet)
             self.work_on_tweet()

@@ -6,6 +6,7 @@ class TweetResponse:
     image = ""
     
     def __init__(self, command, body):
+        self.original_command = command
         self.reply_header = command.get_reply_header().decode('utf-8')
         self.body = body
         self.reply_id = command.get_reply_to_id()

@@ -1,5 +1,7 @@
 import tweepy
 from logger import Log
+import time
+from models.tweetwrapper import TweetWrapper
 class TimelineScanner(tweepy.StreamListener):
 
     def __init__(self, api):
@@ -17,7 +19,10 @@ class TimelineScanner(tweepy.StreamListener):
     def on_status(self, status):
         Log.v("TIMELINE SCANNER", "New tweet: ")
         Log.v("TWEET", status)
-        self.notify_new_status(status)
+        tweetWrapper = TweetWrapper()
+        tweetWrapper.setIncomingTweet(status)
+        tweetWrapper.start_time = long(time.time() * 1000) #time in milliseconds
+        self.notify_new_status(tweetWrapper)
 
     def on_error(self, status):
         print status

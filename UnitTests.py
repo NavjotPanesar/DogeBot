@@ -6,6 +6,8 @@ from components.statusanalyzer import StatusAnalyzer
 from components.statusqueue import StatusQueue
 from logger import Log
 from plugins.plugin_meme_gen import MemeGenerator
+from components.statusanalytics import StaticAnalytics
+from models.tweetwrapper import TweetWrapper
 
 class User:
     screen_name = ""
@@ -28,14 +30,17 @@ class TestEnd2End(unittest.TestCase):
     def setUp(self):
         self.response = []
         Log.showV = False
+        StaticAnalytics.enabled = False
         Log.v("TEST", "NEW TEST---------------------------------------")
 
-    def handleResponse(self, tweet):
-        self.response.append(tweet)
+    def handleResponse(self, tweetWrapper):
+        self.response.append(tweetWrapper.tweet_response)
 
     def buildMockTweet(self, text):
-        returnedTweet= StatusMock(text, "n4vjot")
-        return returnedTweet
+        tweet = StatusMock(text, "n4vjot")
+        tweet_wrapper = TweetWrapper()
+        tweet_wrapper.setIncomingTweet(tweet)
+        return tweet_wrapper
 
     def postTweetToBot(self, reader, tweet):
         reader.queue_tweet(tweet)

@@ -28,14 +28,16 @@ class StatusAnalyzer:
             plugin = pluginClass()
             self.add_plugin(plugin)
 
-    def generate_response_tweet(self, incoming_tweet):
+    def generate_response_tweet(self, tweetWrapper):
         if self.plugin_list is not None:
-            command_tweet = TweetCommand(incoming_tweet)
+            command_tweet = TweetCommand(tweetWrapper.incoming_tweet)
+            tweetWrapper.setTweetCommand(command_tweet)
             for single_plugin in self.plugin_list:
                 is_supported = single_plugin.is_command_supported( command_tweet.get_command_operator() )
                 if is_supported:
                     response_tweet = single_plugin.get_response(command_tweet)
+                    tweetWrapper.setTweetResponse(response_tweet)
                     if response_tweet is not None:
-                        Log.v("ANALYZER","response received: " + Log.sanitizeOuput(response_tweet))
-                        self.notify_reponse_generated(response_tweet)
+                        Log.v("ANALYZER","response received: " + Log.sanitizeOuput(tweetWrapper.tweet_response))
+                        self.notify_reponse_generated(tweetWrapper)
                         return response_tweet
