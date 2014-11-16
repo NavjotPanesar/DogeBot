@@ -1,4 +1,8 @@
 #WOW this class is ugly. TODO: stop being ugly, class.
+
+import smtplib
+from config import email_host
+from config import email_username
 class Log:
     showV = True
     showE = True
@@ -9,9 +13,34 @@ class Log:
             print bcolors.OKGREEN + "[VERBOSE] " + "[" + tag + "]" + " " + Log.sanitizeOuput(event) + bcolors.ENDC
 
     @staticmethod
+    def report_exception(e, traceback):
+         Log.e("EXCEPTION", str(e) + "\n" + traceback.format_exc() )
+    @staticmethod
     def e(tag, event):
         if Log.showE:
             print bcolors.FAIL + "[ERROR] " + "[" + tag + "]" + " " + Log.sanitizeOuput(event) + bcolors.ENDC
+        if Log.notifyMe:
+            Log._send_mail(tag, event)
+
+    @staticmethod
+    def _send_mail(tag, event):
+        sender = email_username
+        receivers = [email_username]
+
+        message = "From: Dogebot " + "<" + email_username +  ">\n"
+        message += "To: Dogebot <"+ email_username +">\n"
+        message += "Subject: Dogebot error report\n\n"
+        message += "Tag: " + tag + "\n"
+        message += "Event: " + event + "\n"
+
+        try:
+           smtpObj = smtplib.SMTP(email_host)
+           smtpObj.sendmail(sender, receivers, message)
+           print "Successfully sent email report"
+        except Exception as e:
+           print e
+
+
 
     @staticmethod
     def sanitizeOuput(output):

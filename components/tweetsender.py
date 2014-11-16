@@ -1,5 +1,5 @@
 from tweepy import *
-from components.statusanalytics import StaticAnalytics
+from components.statusanalytics import StatusAnalyticsSender
 from logger import Log
 import time
 class TweetSender:
@@ -12,14 +12,11 @@ class TweetSender:
     #    if self.observers is not None:
     #        for observer in self.observers:
     #            observer(tweet)
-    def send_tweet(self, tweetWrapper):
-        finish_time = long(time.time() * 1000)
-        tweetWrapper.finish_time = finish_time
-
-        tweet_response = tweetWrapper.tweet_response
-        newStatus = self.update_status(tweet_response)
-        tweetWrapper.tweetId = newStatus.id
-        self.send_analytic(tweetWrapper)
+    def send_tweet(self, wrapped_tweet):
+        tweet_response = wrapped_tweet.get_tweet_response()
+        new_status = self.update_status(tweet_response)
+        wrapped_tweet.set_new_status(new_status)
+        self.send_analytic(wrapped_tweet)
 
 
     def update_status(self, tweet_response):
@@ -36,6 +33,6 @@ class TweetSender:
 
     def send_analytic(self, tweetWrapper):
         try:
-            StaticAnalytics.postAnalytic(tweetWrapper)
+            StatusAnalyticsSender.post_analytic(tweetWrapper)
         except Exception as e:
                 Log.e("EXCEPTION", str(e))

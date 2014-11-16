@@ -12,7 +12,7 @@ class AbstractPlugin:
         return False
 
     @abc.abstractmethod
-    def get_response(self, command_text):
+    def get_response(self, tweet_wrapper):
         """
         :param status: input is models/tweetcommand
         :return: output models/tweetresponse if the plugin has registered for the incoming command

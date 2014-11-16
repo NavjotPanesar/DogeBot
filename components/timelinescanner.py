@@ -19,10 +19,9 @@ class TimelineScanner(tweepy.StreamListener):
     def on_status(self, status):
         Log.v("TIMELINE SCANNER", "New tweet: ")
         Log.v("TWEET", status)
-        tweetWrapper = TweetWrapper()
-        tweetWrapper.setIncomingTweet(status)
-        tweetWrapper.start_time = long(time.time() * 1000) #time in milliseconds
-        self.notify_new_status(tweetWrapper)
+        wrapped_tweet = TweetWrapper()
+        wrapped_tweet.set_incoming_status(status)
+        self.notify_new_status(wrapped_tweet)
 
     def on_error(self, status):
         print status

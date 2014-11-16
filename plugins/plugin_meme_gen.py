@@ -10,7 +10,8 @@ from cStringIO import StringIO
 
 class ExplicitMemeGen(AbstractPlugin):
     registered_commands = ['#meme']
-    def get_response(self, command):
+    def get_response(self, tweet_wrapper):
+        command = tweet_wrapper.get_tweet_command()
         syntax_pattern = '#(.+?) (.+?),\s?(.+)'
         syntax_match = re.match(syntax_pattern, command.get_command_operands())
         if syntax_match and syntax_match.group():
@@ -25,7 +26,9 @@ class ExplicitMemeGen(AbstractPlugin):
 
 class ImplicitMemeGen(AbstractPlugin):
     registered_commands = ["#doge", "#henry", "#steve" , "#uzyr", "#dogdre", "#gdre", "#shaun", "#rosen", "#abster", "#tspinner", "#henrythresh", "#ssjfarhan", "#hamza","#clarinetboy","#spiderhamza"]
-    def get_response(self, command):
+    def get_response(self, tweet_wrapper):
+        command = tweet_wrapper.get_tweet_command()
+        command.plugin_name = "#meme"
         syntax_pattern = '(.+?),\s?(.+)'
         syntax_match = re.match(syntax_pattern, command.get_command_operands())
         if syntax_match and syntax_match.group():

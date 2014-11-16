@@ -7,7 +7,8 @@ import random
 class Buzzwords(AbstractPlugin):
     registered_commands = ['#donger', '#smite', '#rekt', '#dealwithit', '#swag']
     # TODO: add image check to unit test for this
-    def get_response(self, command):
+    def get_response(self, tweet_wrapper):
+        command = tweet_wrapper.get_tweet_command()
         operator = command.get_command_operator()
         if operator == "#smite":
             response_text = "Get smitten, scrub"
