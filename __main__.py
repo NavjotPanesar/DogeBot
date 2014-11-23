@@ -27,4 +27,6 @@ if __name__ == '__main__':
 
     stream = tweepy.Stream(auth, timeline_scanner)
     stream.filter(track=['dogebot'])
+    #I want to listen in onto #dogebot first, then from there detect commands. If you want to just listen into all commands, do:
+    #stream.filter(track=plugin_classes.get_commands_list())
 
