@@ -44,17 +44,17 @@ class Buzzwords(AbstractPlugin):
                  "The Good, the Bad, and the REKT ", "Tyrannosaurus REKT"]
 
     def getRektText(self):
+        random.shuffle(self.rekt_list)
+        choice_one = self.rekt_list[0]
+        choice_two = self.rekt_list[1]
         response_text = u"\n☐"
         response_text += " Not REKT"
-        choice_one = random.choice(self.rekt_list)
-        trimmed_list = list(self.rekt_list)
-        self.rekt_list.remove(choice_one)
-        choice_two = random.choice(trimmed_list)
         response_text += u"\n☑ "
         response_text += choice_one
         response_text += u"\n☐ "
         response_text += choice_two
         return response_text
+
 
 
     donger_lines = [
