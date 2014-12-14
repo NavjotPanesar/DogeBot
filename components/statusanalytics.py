@@ -15,7 +15,7 @@ class StatusAnalyticsSender:
         command = tweet_analytic.plugin_name
         commandOperands = tweetWrapper.get_tweet_command().get_command_operands()
         timeTaken = tweet_analytic.get_total_time()
-        payload = {'token': analytics_auth_token, 'tweetId': tweetId, 'username' : username, 'command': command,'commandOperands': commandOperands, 'time': timeTaken}
+        payload = {'token': analytics_auth_token, 'tweetId': tweetId, 'username' : username, 'command': command,'commandOperands': commandOperands, 'timeTaken': timeTaken}
         print payload
         r = requests.post(analytics_url, data=payload)
         Log.v("[ANALYTICS]", r.text)
