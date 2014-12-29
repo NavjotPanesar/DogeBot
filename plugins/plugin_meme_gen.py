@@ -25,7 +25,7 @@ class ExplicitMemeGen(AbstractPlugin):
         raise Exception("Argument count mismatch")
 
 class ImplicitMemeGen(AbstractPlugin):
-    registered_commands = ["#doge", "#henry", "#steve" , "#uzyr", "#dogdre", "#gdre", "#shaun", "#rosen", "#abster", "#tspinner", "#henrythresh", "#ssjfarhan", "#hamza","#clarinetboy","#spiderhamza", "#bobby"]
+    registered_commands = ["#doge", "#henry", "#steve" , "#uzyr", "#dogdre", "#gdre", "#shaun", "#rosen", "#abster", "#tspinner", "#henrythresh", "#ssjfarhan", "#hamza","#clarinetboy","#spiderhamza", "#bobby", "#john"]
     def get_response(self, tweet_wrapper):
         command = tweet_wrapper.get_tweet_command()
         command.plugin_name = "#meme"
