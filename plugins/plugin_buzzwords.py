@@ -39,6 +39,11 @@ class Buzzwords(AbstractPlugin):
             response = TweetResponse(command, response_text)
             return response
 
+        if operator == "#toucan":
+            response_text = self.getToucanText()
+            response = TweetResponse(command, response_text)
+            return response
+
     rekt_list = ["REKT", "REKTangle", "SHREKT", "REKT-it Ralph", "Total REKTall", "The Lord of the REKT",
                  "The Usual SusREKTs", "North by NorthREKT", "REKT to the Future", "Once Upon a Time in the REKT",
                  "The Good, the Bad, and the REKT ", "Tyrannosaurus REKT"]
@@ -126,3 +131,14 @@ class Buzzwords(AbstractPlugin):
     def getDongerText(self):
         response_text = random.choice(self.donger_lines)
         return response_text
+
+    toucan = [u"""░░░░░░░░▄▄▄▀▀▀▄▄███▄
+░░░░░▄▀▀░░░░░░░▐░▀██▌
+░░░▄▀░░░░▄▄███░▌▀▀░▀█
+░░▄█░░▄▀▀▒▒▒▒▒▄▐░░░░█▌
+░▐█▀▄▀▄▄▄▄▀▀▀▀▌░░░░░▐█▄
+░▌▄▄▀▀░░░░░░░░▌░░░░▄███████"""];
+
+    def getToucanText(self):
+        response_text = self.toucan;
+        return response_text;
